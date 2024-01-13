@@ -1,0 +1,94 @@
+#### PYSHOP DJANGO PROJECT
+
+$√ pip install django==4.2
+$ pip install django==2.1
+$ django-admin startproject pyshop .
+$ python manage.py runserver
+$ python manage.py startapp products
+
+## VIEW FUNCTIONS
+- How to create your first VIEW (views.py)
+- View function is a function that gets called with django when the user navigates to a particular page
+- e.g http://127.0.0.1:8000/products -> Browser sends an HTTP request to a web server, django takes thet 
+   request and inspects the url, then it will call a view function which returns the response to the browser
+- After writing a view function e.g def index(), Django doesnt know that we should call index() function when 
+    we send a request to /products. Hence URL MAPPING
+
+## URL MAPPING (urls.py)
+- So we need to map /products -> index
+- create urls.py inside our products app
+- Now we need to tell Django about the products app
+- Open urls.py in our pyshop project and import 'include' and use it to include 'products/'
+
+## MODELS
+- Model is a representation of a real world concept.
+- In an online shop we can have models like: order, customer, shopping card, product, review
+
+## MIGRATIONS
+- Django creates a sqlite database file to store our data - its suitable for smaller applications
+- Django supports all database engines - sql server, mysql, postgres, oracle
+- search for 'db browser for sqlite' https://sqlitebrowser.org - download the executables
+- We store configuration settings of our products app in 'app.py' eg name = 'products'
+- So to make Django know about our products app by going to pyshop settings and under 'INSTALLED_APPS' add
+    'products.apps.ProductsConfig'
+- Django automatically creates an id field - check at '0001_initial.py'
+
+## ADMIN
+- Login to our Administrative panel
+- We need to create the first user of this application. We call this a Superuser
+- we need to register our models at admin.py of our products app so that it can be added to our Administrative panel
+- Now we can add a product eg (orange) using the Administrative panel. The product will be listed as 'Product object(1)'
+    and we need to change that to read 'orange' hence the topic CUSTOMIZING THE ADMIN
+
+## CUSTOMIZING THE ADMIN
+- How to customize the product table
+- We create a new class at 'admin.py' and call it 'class ProductAdmin(admin.ModelAdmin)' which provides functions 
+    for modeling admins in the Administrative panel
+- We now use this class to change or modify some of the functionaliy or attributes. Attributes such as:
+    ~ list_display = ('name', 'price', 'stock') - Now this will change 'Product object(1)' to orange
+
+## TEMPLATES
+- We need to replace our page with the list of out products that are in the database
+- We will work on views.py to achieve this - that is instead of HttpResponse, we get all the products from
+    the database by using 'Product.objects.all()'. Others: 'Product.objects.filter()', 'Product.objects.get()', 
+    'Product.objects.save()'
+    ~ all()   -> Returns all the products we have in the database
+    ~ filer() -> Filtering products
+    ~ get()   -> Getting a single product
+    ~ save()  -> Inserting a new product or updating an existing one
+- We need to create an HTML Template for presenting this list of products to the user
+- Create new directory in products app called 'templates'
+- Create template for the index function 'index.html'
+- we use render in views.py to render a template
+- We now use template literals {% %} to dynamically execute logic ( for or if statement)
+- We use {{ products.name }} to dynamically render values in our html markup
+
+## ADDING BOOTSTRAP
+- https://getbootstrap.com/docs/4.1/getting-started/introduction/  -> copy the code at 'Starter Template' and
+    paste it at a 'base.html' file that you will create at templates folder
+- At 'base.html' file change the <h1> to {% block content %} {% endblock %}
+- At index.html we extend base.html by: {% extends 'base.html' %}
+- After the {% extends 'base.html' %} we close the content of index.html. It should be as below:
+
+    {% extends 'base.html' %}
+    {% block content %}
+    #index.html content
+    {% endblock %}
+
+## RENDERING CARDS
+- https://getbootstrap.com/docs/4.1/components/card -> copy the card code
+- in index.html create div .row and inside the row create a div .col. Now paste the card code inside the column
+- do a for loop on the column containing the card
+
+## FINAL TOUCHES
+- Navigation bar
+
+
+
+
+
+
+
+
+
+
