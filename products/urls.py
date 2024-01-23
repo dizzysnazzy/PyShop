@@ -4,6 +4,5 @@ from . import views # We did not use 'import views' because views is a conventio
 
 urlpatterns = [
     path('', views.index),
-    path('new/', views.new1)
-
+    path('new/', views.new1),
 ]
