@@ -9,11 +9,38 @@
                 <img class="card-img-top" style="width: 286px; height: 180px" src="{{ product.image.url }}" alt="Card image cap"> 
                 <div class="card-body">
                   <h5 class="card-title">{{ product.name }}</h5>
-                  <p class="card-text">Ksh.{{ product.price }}</p>
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                  <p class="card-text">Ksh.{{ product.price }}</p>                  
+                  <button class="btn btn-primary add-to-cart-btn" data-product-id="{{ product.id }}">Add to Cart</button>
                 </div>
               </div>
         </div>
         {% endfor %}
     </div>
+    <script>
+        $(document).ready(function() {
+            $(".add-to-cart-btn").on("click", function(e) {
+                e.preventDefault();
+                var productId = $(this).data("product-id");
+    
+                $.ajax({
+                    url: "{% url 'cart:add_to_cart' product_id=0 %}".replace('0', productId),
+                    method: "POST",
+                    dataType: "json",
+                    data: {
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        // Update mini-cart or show a success message
+                        alert("Product added to cart successfully!");
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error adding product to cart:");
+                        console.log("Status:", status);
+                        console.log("Response text:", xhr.responseText);
+                        console.log("Error:", error);
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

@@ -8,8 +8,8 @@ def index(request):
     return render(request, "index.html", {"products": products})
 
 
-def new1(request):
-    return HttpResponse("NEW PRODUCTS")
+# def new1(request):
+#     return HttpResponse("NEW PRODUCTS")
 
 
 # def index(request):
