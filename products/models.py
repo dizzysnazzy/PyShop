@@ -10,6 +10,10 @@ class Product(models.Model):
     # image_url = models.CharField(max_length=2083)
     image = models.ImageField(upload_to="images", blank=True)
 
+    def __str__(self):
+        return self.name
+
+
 
 class Offer(models.Model):
     code = models.CharField(max_length=10)

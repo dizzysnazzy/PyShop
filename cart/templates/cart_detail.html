@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
-{% block content2 %}
+{% block content %}
     {% for cart_item in cart.cartitem_set.all %}
         <div class="cart-item">
             <img src="{{ cart_item.product.image.url }}" style="width: 286px; height: 180px" alt="{{ cart_item.product.name }}">
             <h4>{{ cart_item.product.name }}</h4>
             <p>Quantity: {{ cart_item.quantity }}</p>
+            <a href="{% url 'cart:removecart' cart_item.id %}">Remove Cart</a>                
         </div>
     {% endfor %}
     
-    <a href="{% url 'cart:cart_detail' %}">Proceed to Checkout</a>
-{% endblock %}
+    <a href="{% url 'cart:cartdetail' %}">Proceed to Checkout</a>
+{% endblock content %}

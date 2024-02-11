@@ -9,21 +9,23 @@
                 <img class="card-img-top" style="width: 286px; height: 180px" src="{{ product.image.url }}" alt="Card image cap"> 
                 <div class="card-body">
                   <h5 class="card-title">{{ product.name }}</h5>
-                  <p class="card-text">Ksh.{{ product.price }}</p>                  
-                  <button class="btn btn-primary add-to-cart-btn" data-product-id="{{ product.id }}">Add to Cart</button>
+                  <p class="card-text">Ksh.{{ product.price }}</p>  
+                  <a href="{% url 'cart:addcart' product.id %}">Add to Cart</a>                
+                  {% comment %} <button class="btn btn-primary add-to-cart-btn" data-product-id="{{ product.id }}">Add to Cart</button> {% endcomment %}
                 </div>
               </div>
         </div>
         {% endfor %}
     </div>
-    <script>
+
+    {% comment %} <script>
         $(document).ready(function() {
             $(".add-to-cart-btn").on("click", function(e) {
                 e.preventDefault();
                 var productId = $(this).data("product-id");
     
                 $.ajax({
-                    url: "{% url 'cart:add_to_cart' product_id=0 %}".replace('0', productId),
+                    url: "{% url 'cart:addcart' product_id=0 %}".replace('0', productId),
                     method: "POST",
                     dataType: "json",
                     data: {
@@ -42,5 +44,5 @@
                 });
             });
         });
-    </script>
+    </script> {% endcomment %}
 {% endblock %}

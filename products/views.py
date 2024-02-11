@@ -1,20 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.db.models import Sum
+
+from cart.models import Cart
 from .models import Product, Offer
+from cart.models import CartItem
 
 
 def index(request):
     products = Product.objects.all()
-    return render(request, "index.html", {"products": products})
+    cart = Cart.objects.get(user=request.user)
+    count = cart.cartitem_set.all().aggregate(Sum('quantity'))['quantity__sum']
+    return render(request, "index.html", {"products": products, 'count': count})
 
 
-# def new1(request):
-#     return HttpResponse("NEW PRODUCTS")
 
-
-# def index(request):
-#     # return render(request, "index.html")
-#     return HttpResponse("Hello, world. You're at the products index.")
-
-# def new1(request):
-#     return HttpResponse("NEW PRODUCTS")
+    # count_items = CartItem.objects.aggregate(total=Sum('quantity'))
+    # return render(request, "index.html", {"products": products, "count_items": count_items['total'] - 1})

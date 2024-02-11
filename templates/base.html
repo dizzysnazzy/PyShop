@@ -16,17 +16,17 @@
   </head>
   <body>
     <nav class="navbar navbar-light bg-dark">
-      <a class="navbar-brand text-white font-weight-bold" href="#">Snazzy Shop</a>
+      <a class="navbar-brand text-white font-weight-bold" href="{% url 'product:home' %}">Snazzy Shop</a>
+      <a class="navbar-brand text-white font-weight-bold" href="{% url 'cart:cartdetail' %}">View Cart ({{ count }})</a>
     </nav>
-    <img src="{% static 'images/fruit.png' %}" style="height: auto;" class="img-fluid mb-4" alt="Responsive image">
-    <div class="container">
-      {% block content %}
-      {%endblock %}
-    </div>
-    
     <div class="container">
       {% block content2 %}
-      {%endblock %}
+      {% endblock content2 %}
+    </div>
+    {% comment %} <img src="{% static 'images/fruit.png' %}" style="height: auto;" class="img-fluid mb-4" alt="Responsive image"> {% endcomment %}
+    <div class="container">
+      {% block content %}
+      {% endblock content %}
     </div>
     
     <!-- Optional JavaScript -->
