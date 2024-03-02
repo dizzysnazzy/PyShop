@@ -10,7 +10,8 @@ def index(request):
     products = Product.objects.all()
     cart = Cart.objects.get(user=request.user)
     count = cart.cartitem_set.all().aggregate(Sum('quantity'))['quantity__sum']
-    return render(request, "index.html", {"products": products, 'count': count})
+    context = {'products': products, 'count': count}
+    return render(request, "index.html", context)
 
 
 
